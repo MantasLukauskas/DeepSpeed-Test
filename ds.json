@@ -38,7 +38,5 @@
             "warmup_max_lr": 0.00001,
             "warmup_num_steps": 100
         }
-    },
-    "steps_per_print": 1000,
-    "wall_clock_breakdown": false
+    }
 }
