@@ -1,10 +1,10 @@
-{"widget": {
-    "debug": "on",
-    "window": {
-        "title": "Sample Konfabulator Widget",
-        "name": "main_window",
-        "width": 500,
-        "height": 500
+{'widget': {
+    'debug': 1,
+    'window': {
+        'title': 2,
+        'name': 3,
+        'width': 500,
+        'height': 500
     },
     "image": { 
         "src": "Images/Sun.png",
