@@ -1,4 +1,6 @@
 {
+    "train_batch_size": 4096,
+    "train_micro_batch_size_per_gpu": 64,
     "fp16": {
         "enabled": true,
         "loss_scale": 0,
@@ -38,6 +40,5 @@
         }
     },
     "steps_per_print": 1000,
-    "wall_clock_breakdown": false,
-    "train_batch_size": 8,
+    "wall_clock_breakdown": false
 }
