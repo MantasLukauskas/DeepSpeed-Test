@@ -12,6 +12,7 @@
   },
   "zero_optimization": {
     "stage": 2,
+    "gradient_clipping":1.0
     "allgather_partitions": true,
     "allgather_bucket_size": 5e7,
     "overlap_comm": true,
