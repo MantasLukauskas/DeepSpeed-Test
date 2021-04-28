@@ -3,7 +3,7 @@
   "train_micro_batch_size_per_gpu": 64,
   "steps_per_print": 1000,
   "optimizer": {
-    "type": "Adam",
+    "type": "AdamW",
     "params": {
       "lr": 2e-4,
       "weight_decay": 0.01,
