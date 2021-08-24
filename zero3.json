@@ -33,7 +33,8 @@
       },
       "offload_param": {
         "device": "cpu"
-      },
+      }
+  },
   "scheduler": {
     "type": "WarmupLR",
     "params": {
