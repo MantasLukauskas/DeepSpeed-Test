@@ -3,7 +3,7 @@
   "gradient_accumulation_steps": 1,
   "steps_per_print": 1,
   "optimizer": {
-    "type": "Adam",
+    "type": "AdamW",
     "params": {
       "lr": "auto",
       "max_grad_norm": 1.0,
