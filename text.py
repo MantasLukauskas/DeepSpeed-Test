@@ -1,5 +1,10 @@
 from transformers import pipeline
+
+print("Transformers library succesfully loaded")
+
 generator = pipeline("text-generation", model="EleutherAI/gpt-j-6")
+
+print("Generator model loaded")
 
 texts = []
 
