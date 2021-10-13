@@ -6,6 +6,7 @@ generator = pipeline("text-generation", model="EleutherAI/gpt-j-6B")
 
 print("Generator model loaded")
 
+
 texts = []
 
 for i in range(1,5):
