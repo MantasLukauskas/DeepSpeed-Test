@@ -2,7 +2,7 @@ from transformers import pipeline
 
 print("Transformers library succesfully loaded")
 
-generator = pipeline("text-generation", model="EleutherAI/gpt-j-6")
+generator = pipeline("text-generation", model="EleutherAI/gpt-j-6B")
 
 print("Generator model loaded")
 
