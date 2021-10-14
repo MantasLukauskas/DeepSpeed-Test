@@ -50,4 +50,4 @@ for i in range(1):
         except:
           print("Error in len(texts)")
 
-pd.to_csv("Generated_texts.csv")
+df.to_csv("Generated_texts.csv")
