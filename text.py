@@ -45,10 +45,10 @@ for i in range(1):
 
 textfile = open("generated.txt", "w")
 for element in texts:
-    textfile.write(str(element) + "\n")
+    textfile.write(element)
 textfile.close()
 
 labelsfile = open("labels.txt", "w")
 for element in labels:
-    labelsfile.write(str(element) + "\n")
+    labelsfile.write(element)
 labelsfile.close()
