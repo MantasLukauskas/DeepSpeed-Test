@@ -1,4 +1,5 @@
 from transformers import pipeline
+import random
 
 print("Transformers library succesfully loaded")
 
@@ -17,7 +18,7 @@ for i in range(1,2):
         keywords = ["About basketball:", "About basketball ball", "basketball", "basketball player", "basketball game", "basketball history"]
       if topic == "boxing":
         keywords = ["About basketball:", "About boxing gloves", "boxing", "boxing champion", "boxing match", "boxing history"]
-        
+      print("Keywords loaded")
       for start in keywords:
         try:
           texts.append(generator(f"About {start}:",
