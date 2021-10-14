@@ -37,11 +37,11 @@ for i in range(1):
           
           
           df = df.append({"label": topic,
-                          "text": text[0]["generated_text"]
+                          "text": text
                          }, ignore_index=True)  
-          df = df.append({"label": topic,
-                          "text": text[1]["generated_text"]
-                         }, ignore_index=True)            
+#           df = df.append({"label": topic,
+#                           "text": text[1]["generated_text"]
+#                          }, ignore_index=True)            
 
         except:
           print("Error in generation. Skip")
