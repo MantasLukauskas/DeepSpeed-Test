@@ -13,14 +13,17 @@ labels = []
   
 df = pd.DataFrame(columns=["label","text"])
 
-for i in range(1):
+for i in range(100):
   print(f"Start of {i} cycle")
-  for j in [200]:
-    for topic in ["basketball","boxing"]:
+  for j in [200, 300, 400, 500, 600, 700]:
+    for topic in ["basketball","boxing","gaming"]:
       if topic == "basketball":
-        keywords = ["About basketball:", "About basketball ball:", "About basketball player:", "basketball", "basketball player", "basketball game", "basketball history"]
+        keywords = ["About basketball:", "About basketball ball:", "About basketball player:", "basketball", "basketball player", "basketball game", "basketball history", "basketball court", "basketball fans"]
       if topic == "boxing":
-        keywords = ["About boxing:", "About boxing gloves:", "About boxing champion:", "boxing", "boxing champion", "boxing match", "boxing history"]
+        keywords = ["About boxing:", "About boxing gloves:", "About boxing champion:", "boxing", "boxing champion", "boxing match", "boxing history", "boxing ring", "boxing arena"]
+      if topic == "gaming":
+        keywords = ["About gaming:", "About gaming setuo:", "About gaming champion:", "gaming", "gaming champion", "gaming match", "gaming history", "gaming tournament", "league of legends", "world of warcraft", "GTA"]
+
       print("Keywords loaded")
       for start in keywords:
         print(start)
