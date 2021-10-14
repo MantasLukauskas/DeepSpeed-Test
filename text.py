@@ -1,5 +1,6 @@
 from transformers import pipeline
 import random
+import pandas as pd
 
 print("Transformers library succesfully loaded")
 
@@ -9,6 +10,8 @@ print("Generator model loaded")
 
 texts = []
 labels = []
+  
+df = pd.DataFrame(columns=["label","text"])
 
 for i in range(1):
   print(f"Start of {i} cycle")
@@ -22,6 +25,7 @@ for i in range(1):
       for start in keywords:
         print(start)
         try:
+          
           text = generator(f"About {start}:",
                                  do_sample=True,
                                  max_length=j,
@@ -31,24 +35,19 @@ for i in range(1):
                                  top_p=random.uniform(0.95, 1.0),
                                  repetition_penalty=1.0)
           
-          texts.append(text[0]["generated_text"])
-          texts.append(text[1]["generated_text"])
           
-          labels.append(topic)
-          labels.append(topic)
+          df = df.append({"label": topic,
+                          "text": text[0]["generated_text"]
+                         }, ignore_index=True)  
+          df = df.append({"label": topic,
+                          "text": text[1]["generated_text"]
+                         }, ignore_index=True)            
+
         except:
           print("Error in generation. Skip")
         try:  
-          print(len(texts))
+          print(len(df))
         except:
           print("Error in len(texts)")
 
-textfile = open("generated.txt", "w")
-for element in texts:
-    textfile.write(element)
-textfile.close()
-
-labelsfile = open("labels.txt", "w")
-for element in labels:
-    labelsfile.write(element)
-labelsfile.close()
+pd.to_csv("Generated_texts.csv")
