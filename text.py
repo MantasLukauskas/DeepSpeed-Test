@@ -8,7 +8,8 @@ print("Generator model loaded")
 
 texts = []
 
-for i in range(1,5):
+for i in range(1,200):
+  print(f"Start of {i} cycle")
   for j in [300,400,500,600]:
     for topic in ["basketball","boxing"]:
       try:
