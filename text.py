@@ -12,7 +12,7 @@ for i in range(1,5):
   for j in [300,400,500,600]:
     for topic in ["basketball","boxing"]:
       try:
-        texts.append(generator(f"About {topic}:", do_sample=True, max_length=j, num_return_sequences=10))
+        texts.append(generator(f"About {topic}:", do_sample=True, max_length=j, num_return_sequences=5))
       except:
         print("Error in generation. Skip")
       try:  
