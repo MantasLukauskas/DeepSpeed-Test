@@ -17,7 +17,7 @@ for i in range(1,2):
       if topic == "basketball":
         keywords = ["About basketball:", "About basketball ball", "basketball", "basketball player", "basketball game", "basketball history"]
       if topic == "boxing":
-        keywords = ["About basketball:", "About boxing gloves", "boxing", "boxing champion", "boxing match", "boxing history"]
+        keywords = ["About boxing:", "About boxing gloves", "boxing", "boxing champion", "boxing match", "boxing history"]
       print("Keywords loaded")
       for start in keywords:
         print(start)
