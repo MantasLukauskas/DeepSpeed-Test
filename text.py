@@ -20,6 +20,7 @@ for i in range(1,2):
         keywords = ["About basketball:", "About boxing gloves", "boxing", "boxing champion", "boxing match", "boxing history"]
       print("Keywords loaded")
       for start in keywords:
+        print(start)
         try:
           texts.append(generator(f"About {start}:",
                                  do_sample=True,
