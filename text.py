@@ -53,5 +53,7 @@ for i in range(100):
           print(len(df))
         except:
           print("Error in len(texts)")
-  df.to_csv(f"Texts_{datetime.now().strftime("%Y_%m_%d_%H_%m")}.csv")
+  time_now = datetime.now().strftime("%Y_%m_%d_%H_%m")
+  df.to_csv(f"Texts_{time_now}.csv")
+  
 df.to_csv("Generated_texts.csv")
