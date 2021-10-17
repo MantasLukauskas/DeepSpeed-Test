@@ -1,6 +1,7 @@
 from transformers import pipeline
 import random
 import pandas as pd
+from datetime import datetime
 
 print("Transformers library succesfully loaded")
 
@@ -52,5 +53,5 @@ for i in range(100):
           print(len(df))
         except:
           print("Error in len(texts)")
-
+  df.to_csv(f"Texts_{datetime.now().strftime("%Y_%m_%d_%H_%m")}.csv")
 df.to_csv("Generated_texts.csv")
