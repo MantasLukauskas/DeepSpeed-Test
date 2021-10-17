@@ -20,14 +20,14 @@ for i in range(10):
       generator = pipeline("text-generation", model="EleutherAI/gpt-neo-2.7B", device=0)
     if model == "GPT2-L":
       generator = pipeline("text-generation", model="gpt2-large", device=0)
-    for j in [700]:
+    for j in [700, 600, 500, 400, 300, 200]:
       for topic in ["basketball","boxing","gaming"]:
         if topic == "basketball":
-          keywords = ["About basketball:", "About basketball ball:", "About basketball player:", "basketball", "basketball player", "basketball game", "basketball history", "basketball court", "basketball fans", "NBA"]
+          keywords = ["About basketball:", "About basketball ball:", "About basketball player:", "basketball", "basketball player", "basketball game", "basketball history", "basketball court", "basketball fans", "NBA", "Euroleague", "WNBA"]
         if topic == "boxing":
           keywords = ["About boxing:", "About boxing gloves:", "About boxing champion:", "boxing", "boxing champion", "boxing match", "boxing history", "boxing ring", "boxing arena"]
         if topic == "gaming":
-          keywords = ["About gaming:", "About gaming setup:", "About gaming champion:", "gaming", "gaming champion", "gaming match", "gaming history", "gaming tournament", "league of legends", "world of warcraft", "GTA", "minecraft"]
+          keywords = ["About gaming:", "About gaming setup:", "About gaming champion:", "gaming", "gaming champion", "gaming match", "gaming history", "gaming tournament", "League of Legends", "World of Warcraft", "GTA", "Minecraft", "Red Dead Redemption 2", "Call of Duty", "Super Mario", "Fortnite"]
         print("Keywords loaded")
         for start in keywords:
           print(start)
@@ -52,7 +52,7 @@ for i in range(10):
             print(len(df))
           except:
             print("Error in len(texts)")
-  time_now = datetime.now().strftime("%Y_%m_%d_%H_%m")
-  df.to_csv(f"Texts_{time_now}.csv")
+    time_now = datetime.now().strftime("%Y_%m_%d_%H_%m")
+    df.to_csv(f"Texts_{time_now}.csv")
   
 df.to_csv("Generated_texts.csv")
