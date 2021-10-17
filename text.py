@@ -15,10 +15,11 @@ labels = []
   
 df = pd.DataFrame(columns=["model","label","text"])
 
-for i in range(100):
+for i in range(10):
+  print(f"Start of {i} cycle")
   for model in ["neo27B","GPT2-L"]:
-    print(f"Start of {i} cycle")
-    for j in [200, 300, 400, 500, 600, 700]:
+    print(f"Model {model} started to generate texts")
+    for j in [700]:
       for topic in ["basketball","boxing","gaming"]:
         if topic == "basketball":
           keywords = ["About basketball:", "About basketball ball:", "About basketball player:", "basketball", "basketball player", "basketball game", "basketball history", "basketball court", "basketball fans", "NBA"]
@@ -26,7 +27,6 @@ for i in range(100):
           keywords = ["About boxing:", "About boxing gloves:", "About boxing champion:", "boxing", "boxing champion", "boxing match", "boxing history", "boxing ring", "boxing arena"]
         if topic == "gaming":
           keywords = ["About gaming:", "About gaming setup:", "About gaming champion:", "gaming", "gaming champion", "gaming match", "gaming history", "gaming tournament", "league of legends", "world of warcraft", "GTA", "minecraft"]
-
         print("Keywords loaded")
         for start in keywords:
           print(start)
