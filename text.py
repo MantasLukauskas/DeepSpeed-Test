@@ -5,9 +5,6 @@ from datetime import datetime
 
 print("Transformers library succesfully loaded")
 
-generator = pipeline("text-generation", model="EleutherAI/gpt-neo-2.7B", device=0)
-generator2 = pipeline("text-generation", model="gpt2-large", device=0)
-
 print("Generator model loaded")
 
 texts = []
@@ -19,6 +16,10 @@ for i in range(10):
   print(f"Start of {i} cycle")
   for model in ["neo27B","GPT2-L"]:
     print(f"Model {model} started to generate texts")
+    if model == "neo27B":
+      generator = pipeline("text-generation", model="EleutherAI/gpt-neo-2.7B", device=0)
+    if model == "GPT2-L":
+      generator = pipeline("text-generation", model="gpt2-large", device=0)
     for j in [700]:
       for topic in ["basketball","boxing","gaming"]:
         if topic == "basketball":
@@ -31,24 +32,14 @@ for i in range(10):
         for start in keywords:
           print(start)
           try:
-            if model == "neo27B":
-              text = generator(f"About {start}:",
-                                     do_sample=True,
-                                     max_length=j,
-                                     num_return_sequences=2,
-                                     temperature=random.uniform(0.95, 1.15),
-                                     top_k=random.randint(100, 1000),
-                                     top_p=random.uniform(0.95, 1.0),
-                                     repetition_penalty=1.0)
-            if model == "GPT2-L":
-              text = generator2(f"About {start}:",
-                                     do_sample=True,
-                                     max_length=j,
-                                     num_return_sequences=2,
-                                     temperature=random.uniform(0.95, 1.15),
-                                     top_k=random.randint(100, 1000),
-                                     top_p=random.uniform(0.95, 1.0),
-                                     repetition_penalty=1.0)
+            text = generator(f"About {start}:",
+                             do_sample=True,
+                             max_length=j,
+                             num_return_sequences=2,
+                             temperature=random.uniform(0.95, 1.15),
+                             top_k=random.randint(100, 1000),
+                             top_p=random.uniform(0.95, 1.0),
+                             repetition_penalty=1.0)
 
             df = df.append({"model": model,
                             "label": topic,
