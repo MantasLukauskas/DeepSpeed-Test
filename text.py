@@ -17,7 +17,7 @@ labels = []
 df = pd.DataFrame(columns=["model","label","text"])
 
 for i in range(100):
-  for model in models["neo27B","GPT2-L"]:
+  for model in ["neo27B","GPT2-L"]:
     print(f"Start of {i} cycle")
     for j in [200, 300, 400, 500, 600, 700]:
       for topic in ["basketball","boxing","gaming"]:
