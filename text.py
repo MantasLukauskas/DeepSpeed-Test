@@ -8,7 +8,6 @@ print("Transformers library succesfully loaded")
 generator = pipeline("text-generation", model="EleutherAI/gpt-neo-2.7B", device=0)
 generator2 = pipeline("text-generation", model="gpt2-large", device=0)
 
-
 print("Generator model loaded")
 
 texts = []
