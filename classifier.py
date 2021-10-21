@@ -7,6 +7,7 @@ def main():
     parser = argparse.ArgumentParser(description='List the content of a folder')
     parser.add_argument('--train_file', type=str, help='Input dir for videos')
     parser.add_argument('--test_file', type=str, help='Input dir for videos')
+    parser.add_argument('--batch_size', type=int, help='Input dir for videos')
     args = parser.parse_args()
 
 
@@ -90,13 +91,15 @@ def main():
 
     training_args = TrainingArguments(
         output_dir='./results',  # output directory
-        num_train_epochs=1,  # total number of training epochs
-        per_device_train_batch_size=3,  # batch size per device during training
-        per_device_eval_batch_size=3,  # batch size for evaluation
+        num_train_epochs=5,  # total number of training epochs
+        per_device_train_batch_size=args.batch_size,  # batch size per device during training
+        per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
+        save_steps=5000,
+        load_best_model_at_end=True,
         weight_decay=0.01,  # strength of weight decay
         logging_dir='./logs',  # directory for storing logs
-        logging_steps=10,
+        logging_steps=100,
     )
 
     model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=len(train["label"].unique()))
