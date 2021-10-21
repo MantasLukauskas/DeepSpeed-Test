@@ -121,10 +121,9 @@ def main():
     dict(zip(unique, counts))
 
     from sklearn.metrics import accuracy_score
-    print("Accuracy is ",accuracy_score(prediction.label_ids, test_labels)
+    print("Accuracy is ",accuracy_score(prediction.label_ids, test_labels))
 
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
