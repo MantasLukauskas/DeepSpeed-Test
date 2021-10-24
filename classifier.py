@@ -85,19 +85,20 @@ def main():
     val_dataset = IMDbDataset(val_encodings, val_labels)
     test_dataset = IMDbDataset(test_encodings, test_labels)
 
+    from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments
+
     training_args = TrainingArguments(
         output_dir='./results',  # output directory
         num_train_epochs=5,  # total number of training epochs
-        per_device_train_batch_size=args.batch_size,  # batch size per device during training
-        per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
+        per_device_train_batch_size=7,  # batch size per device during training
+        per_device_eval_batch_size=7,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
-        save_steps=5000,
         weight_decay=0.01,  # strength of weight decay
         logging_dir='./logs',  # directory for storing logs
         logging_steps=100,
     )
 
-    model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=len(train["label"].unique()))
+    model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=10)
 
     trainer = Trainer(
         model=model,  # the instantiated 🤗 Transformers model to be trained
@@ -108,14 +109,31 @@ def main():
 
     trainer.train()
 
+    import numpy as np
+    from sklearn.metrics import accuracy_score
+    from sklearn.metrics import classification_report
+
+    # Evaluation on training dataset
+    prediction = trainer.predict(train_dataset)
+    preds = np.argmax(prediction.predictions, axis=-1)
+    print(accuracy_score(preds, prediction.label_ids))
+    target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds, prediction.label_ids, target_names=target_names, digits=3))
+
+    # Evaluation on validation dataset
+    prediction = trainer.predict(val_dataset)
+    preds = np.argmax(prediction.predictions, axis=-1)
+    print(accuracy_score(preds, prediction.label_ids))
+    target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds, prediction.label_ids, target_names=target_names, digits=3))
+
+    # Evaluation on testing dataset
     prediction = trainer.predict(test_dataset)
+    preds = np.argmax(prediction.predictions, axis=-1)
+    print(accuracy_score(preds, prediction.label_ids))
+    target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds, prediction.label_ids, target_names=target_names, digits=3))
 
-    unique, counts = np.unique(prediction.label_ids, return_counts=True)
-    dict(zip(unique, counts))
-    unique, counts = np.unique(np.array(test_labels), return_counts=True)
-    dict(zip(unique, counts))
-
-    print("Accuracy is ", accuracy_score(prediction.label_ids, test_labels))
 
 if __name__ == '__main__':
     main()
