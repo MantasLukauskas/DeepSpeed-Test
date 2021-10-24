@@ -89,7 +89,7 @@ def main():
 
     training_args = TrainingArguments(
         output_dir='./results',  # output directory
-        num_train_epochs=5,  # total number of training epochs
+        num_train_epochs=7,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
@@ -107,7 +107,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train()
+    trainer.train("checkpoint-65000")
 
     import numpy as np
     from sklearn.metrics import accuracy_score
