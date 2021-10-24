@@ -98,7 +98,7 @@ def main():
         logging_steps=100,
     )
 
-    model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=10)
+    model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=len(train['label'].unique()))
 
     trainer = Trainer(
         model=model,  # the instantiated 🤗 Transformers model to be trained
