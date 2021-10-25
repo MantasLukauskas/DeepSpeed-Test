@@ -9,6 +9,7 @@ from transformers import DistilBertForSequenceClassification, Trainer, TrainingA
 import numpy as np
 from sklearn.metrics import accuracy_score
 
+
 def main():
     # Create the parser
     parser = argparse.ArgumentParser(description='List the content of a folder')
@@ -98,7 +99,7 @@ def main():
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
         weight_decay=0.01,  # strength of weight decay
         logging_dir='./logs_roberta',  # directory for storing logs
-        saving_steps = 5000,
+        save_steps=5000,
         logging_steps=100,
     )
 
