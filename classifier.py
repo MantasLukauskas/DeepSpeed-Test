@@ -98,6 +98,7 @@ def main():
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
         weight_decay=0.01,  # strength of weight decay
         logging_dir='./logs_roberta',  # directory for storing logs
+        saving_steps = 5000,
         logging_steps=100,
     )
 
@@ -112,7 +113,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train()
+    trainer.train("results_roberta/checkpoint-500")
 
     import numpy as np
     from sklearn.metrics import accuracy_score
