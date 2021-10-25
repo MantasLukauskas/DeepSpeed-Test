@@ -107,7 +107,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train("results/checkpoint-65000")
+    trainer.train("results/checkpoint-77500")
 
     import numpy as np
     from sklearn.metrics import accuracy_score
