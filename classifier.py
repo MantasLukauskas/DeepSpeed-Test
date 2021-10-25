@@ -117,22 +117,31 @@ def main():
     prediction = trainer.predict(train_dataset)
     preds = np.argmax(prediction.predictions, axis=-1)
     print(accuracy_score(preds, prediction.label_ids))
-    target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
-    print(classification_report(preds, prediction.label_ids, target_names=target_names, digits=3))
+    # target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds,
+                                prediction.label_ids,
+                                # target_names=target_names,
+                                digits=3))
 
     # Evaluation on validation dataset
     prediction = trainer.predict(val_dataset)
     preds = np.argmax(prediction.predictions, axis=-1)
     print(accuracy_score(preds, prediction.label_ids))
-    target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
-    print(classification_report(preds, prediction.label_ids, target_names=target_names, digits=3))
+    # target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds,
+                                prediction.label_ids,
+                                # target_names=target_names,
+                                digits=3))
 
     # Evaluation on testing dataset
     prediction = trainer.predict(test_dataset)
     preds = np.argmax(prediction.predictions, axis=-1)
     print(accuracy_score(preds, prediction.label_ids))
-    target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
-    print(classification_report(preds, prediction.label_ids, target_names=target_names, digits=3))
+    # target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds,
+                                prediction.label_ids,
+                                # target_names=target_names,
+                                digits=3))
 
 
 if __name__ == '__main__':
