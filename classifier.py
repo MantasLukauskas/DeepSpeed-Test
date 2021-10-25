@@ -62,7 +62,9 @@ def main():
 
     train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
 
-    tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
+    from transformers import RobertaTokenizer, RobertaForSequenceClassification
+    # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
+    tokenizer = RobertaTokenizer.from_pretrained('siebert/sentiment-roberta-large-english')
 
     train_encodings = tokenizer(train_texts, truncation=True, padding=True)
     val_encodings = tokenizer(val_texts, truncation=True, padding=True)
@@ -86,20 +88,23 @@ def main():
     test_dataset = IMDbDataset(test_encodings, test_labels)
 
     from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments
+    from transformers import RobertaTokenizer, RobertaForSequenceClassification
 
     training_args = TrainingArguments(
-        output_dir='./results',  # output directory
+        output_dir='./results_roberta',  # output directory
         num_train_epochs=7,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
         weight_decay=0.01,  # strength of weight decay
-        logging_dir='./logs',  # directory for storing logs
+        logging_dir='./logs_roberta',  # directory for storing logs
         logging_steps=100,
     )
 
-    model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=len(train['label'].unique()))
-
+    # model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=10)
+    model = RobertaForSequenceClassification.from_pretrained("siebert/sentiment-roberta-large-english",
+                                                             num_labels=len(train['label'].unique()),
+                                                             ignore_mismatched_sizes=True)
     trainer = Trainer(
         model=model,  # the instantiated 🤗 Transformers model to be trained
         args=training_args,  # training arguments, defined above
@@ -107,7 +112,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train("results/checkpoint-77500")
+    trainer.train()
 
     import numpy as np
     from sklearn.metrics import accuracy_score
