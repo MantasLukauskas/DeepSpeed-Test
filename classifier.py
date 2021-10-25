@@ -143,6 +143,10 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
+    with open('predictions.txt', 'w') as f:
+        for item in preds:
+            f.write("%s\n" % item)
+
 
 if __name__ == '__main__':
     main()
