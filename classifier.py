@@ -143,8 +143,10 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
+    pred_labels = le.inverse_transform(preds)
+
     with open('predictions.txt', 'w') as f:
-        for item in preds:
+        for item in pred_labels:
             f.write("%s\n" % item)
 
 
