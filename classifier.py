@@ -65,10 +65,10 @@ def main():
     train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
 
 
-    # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
+    tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
     # tokenizer = RobertaTokenizer.from_pretrained('siebert/sentiment-roberta-large-english')
-    tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
-    tokenizer.pad_token = tokenizer.eos_token
+    # tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
+    # tokenizer.pad_token = tokenizer.eos_token
 
     train_encodings = tokenizer(train_texts, truncation=True, padding=True)
     val_encodings = tokenizer(val_texts, truncation=True, padding=True)
@@ -97,25 +97,26 @@ def main():
 
 
     training_args = TrainingArguments(
-        output_dir='./results_gptneo125M',  # output directory
+        output_dir='./results_sst',  # output directory
         num_train_epochs=1,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
         weight_decay=0.01,  # strength of weight decay
-        logging_dir='./logs_gptneo125M',  # directory for storing logs
+        logging_dir='./logs_sst',  # directory for storing logs
         save_steps=5000,
         logging_steps=100,
     )
 
-    # model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=10)
+    model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english",
+                                                                num_labels=len(train['label'].unique()))
     # model = RobertaForSequenceClassification.from_pretrained("siebert/sentiment-roberta-large-english",
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
-
-    model = GPTNeoForSequenceClassification.from_pretrained('EleutherAI/gpt-neo-125M',
-                                                             num_labels=len(train['label'].unique()),
-                                                             ignore_mismatched_sizes=True)
+    #
+    # model = GPTNeoForSequenceClassification.from_pretrained('EleutherAI/gpt-neo-125M',
+    #                                                          num_labels=len(train['label'].unique()),
+    #                                                          ignore_mismatched_sizes=True)
 
     trainer = Trainer(
         model=model,  # the instantiated 🤗 Transformers model to be trained
