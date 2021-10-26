@@ -109,7 +109,8 @@ def main():
     )
 
     model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english",
-                                                                num_labels=len(train['label'].unique()))
+                                                                num_labels=len(train['label'].unique()),
+                                                                ignore_mismatched_sizes=True)
     # model = RobertaForSequenceClassification.from_pretrained("siebert/sentiment-roberta-large-english",
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
