@@ -98,7 +98,7 @@ def main():
 
     training_args = TrainingArguments(
         output_dir='./results_sst',  # output directory
-        num_train_epochs=3,  # total number of training epochs
+        num_train_epochs=4,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
@@ -126,31 +126,31 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train("results_sst/checkpoint-5000")
+    trainer.train("results_sst/checkpoint-30000")
 
     import numpy as np
     from sklearn.metrics import accuracy_score
     from sklearn.metrics import classification_report
 
     # # Evaluation on training dataset
-    # prediction = trainer.predict(train_dataset)
-    # preds = np.argmax(prediction.predictions, axis=-1)
-    # print(accuracy_score(preds, prediction.label_ids))
-    # # target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
-    # print(classification_report(preds,
-    #                             prediction.label_ids,
-    #                             # target_names=target_names,
-    #                             digits=3))
+    prediction = trainer.predict(train_dataset)
+    preds = np.argmax(prediction.predictions, axis=-1)
+    print(accuracy_score(preds, prediction.label_ids))
+    # target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds,
+                                prediction.label_ids,
+                                # target_names=target_names,
+                                digits=3))
     #
     # # Evaluation on validation dataset
-    # prediction = trainer.predict(val_dataset)
-    # preds = np.argmax(prediction.predictions, axis=-1)
-    # print(accuracy_score(preds, prediction.label_ids))
-    # # target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
-    # print(classification_report(preds,
-    #                             prediction.label_ids,
-    #                             # target_names=target_names,
-    #                             digits=3))
+    prediction = trainer.predict(val_dataset)
+    preds = np.argmax(prediction.predictions, axis=-1)
+    print(accuracy_score(preds, prediction.label_ids))
+    # target_names = le.inverse_transform(list(range(0, len(train["label"].unique()))))
+    print(classification_report(preds,
+                                prediction.label_ids,
+                                # target_names=target_names,
+                                digits=3))
 
     # Evaluation on testing dataset
     prediction = trainer.predict(test_dataset)
