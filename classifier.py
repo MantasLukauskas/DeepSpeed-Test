@@ -8,6 +8,8 @@ import torch
 import numpy as np
 from sklearn.metrics import accuracy_score
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
+from transformers import BertTokenizer, BertForSequenceClassification
+
 from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments
 from transformers import GPT2Tokenizer, GPTNeoForSequenceClassification
 
@@ -67,7 +69,7 @@ def main():
 
     # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
     # tokenizer = RobertaTokenizer.from_pretrained('siebert/sentiment-roberta-large-english')
-    tokenizer = RobertaTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
+    tokenizer = BertTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
     # tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
     # tokenizer.pad_token = tokenizer.eos_token
 
@@ -117,7 +119,7 @@ def main():
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
 
-    model = RobertaForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment",
+    model = BertForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment",
                                                              num_labels=len(train['label'].unique()),
                                                              ignore_mismatched_sizes=True)
 
