@@ -77,6 +77,7 @@ def main():
 
     print("Encoding ended")
 
+
     class IMDbDataset(torch.utils.data.Dataset):
         def __init__(self, encodings, labels):
             self.encodings = encodings
