@@ -101,7 +101,7 @@ def main():
 
     training_args = TrainingArguments(
         output_dir='./results_multi_roberta',  # output directory
-        num_train_epochs=3,  # total number of training epochs
+        num_train_epochs=5,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
@@ -135,7 +135,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train("results_multi_roberta/checkpoint-20000")
+    trainer.train("results_multi_roberta/checkpoint-80000")
 
     import numpy as np
     from sklearn.metrics import accuracy_score
@@ -173,7 +173,7 @@ def main():
 
     pred_labels = le.inverse_transform(preds)
 
-    with open('predictions_multi_bert.txt', 'w') as f:
+    with open('predictions_multi_bert_5epochs.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
 
