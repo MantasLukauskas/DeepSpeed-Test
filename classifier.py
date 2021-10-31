@@ -97,7 +97,6 @@ def main():
     val_dataset = IMDbDataset(val_encodings, val_labels)
     test_dataset = IMDbDataset(test_encodings, test_labels)
 
-
     print("Datasets prepared")
 
     training_args = TrainingArguments(
