@@ -68,7 +68,7 @@ def main():
 
 
     # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
-    tokenizer = RobertaTokenizer.from_pretrained('siebert/sentiment-roberta-large-english')
+    tokenizer = RobertaTokenizer.from_pretrained('roberta-large-mnli')
     # tokenizer = BertTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
     # tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
     # tokenizer.pad_token = tokenizer.eos_token
@@ -100,13 +100,13 @@ def main():
     print("Datasets prepared")
 
     training_args = TrainingArguments(
-        output_dir='./results_siehert',  # output directory
+        output_dir='./results_roberta_large',  # output directory
         num_train_epochs=5,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
         weight_decay=0.01,  # strength of weight decay
-        logging_dir='./logs_siehert',  # directory for storing logs
+        logging_dir='./logs_roberta_large',  # directory for storing logs
         save_steps=5000,
         logging_steps=100,
     )
@@ -114,7 +114,7 @@ def main():
     # model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english",
     #                                                             num_labels=len(train['label'].unique()),
     #                                                             ignore_mismatched_sizes=True)
-    model = RobertaForSequenceClassification.from_pretrained("siebert/sentiment-roberta-large-english",
+    model = RobertaForSequenceClassification.from_pretrained("roberta-large-mnli",
                                                              num_labels=len(train['label'].unique()),
                                                              ignore_mismatched_sizes=True)
 
@@ -136,7 +136,7 @@ def main():
     )
 
 
-    trainer.train("results_siehert/checkpoint-35000")
+    trainer.train()
 
     import numpy as np
     from sklearn.metrics import accuracy_score
@@ -174,7 +174,7 @@ def main():
 
     pred_labels = le.inverse_transform(preds)
 
-    with open('predictions_siehert.txt', 'w') as f:
+    with open('predictions_roberta_large.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
 
