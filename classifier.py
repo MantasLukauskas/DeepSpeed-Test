@@ -68,8 +68,8 @@ def main():
 
 
     # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
-    tokenizer = RobertaTokenizer.from_pretrained('roberta-large-mnli')
-    # tokenizer = BertTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
+    # tokenizer = RobertaTokenizer.from_pretrained('roberta-large-mnli')
+    tokenizer = BertTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
     # tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
     # tokenizer.pad_token = tokenizer.eos_token
 
@@ -114,13 +114,13 @@ def main():
     # model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english",
     #                                                             num_labels=len(train['label'].unique()),
     #                                                             ignore_mismatched_sizes=True)
-    model = RobertaForSequenceClassification.from_pretrained("roberta-large-mnli",
-                                                             num_labels=len(train['label'].unique()),
-                                                             ignore_mismatched_sizes=True)
-
-    # model = BertForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment",
+    # model = RobertaForSequenceClassification.from_pretrained("roberta-large-mnli",
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
+
+    model = BertForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment",
+                                                             num_labels=len(train['label'].unique()),
+                                                             ignore_mismatched_sizes=True)
 
 
     #
@@ -174,7 +174,7 @@ def main():
 
     pred_labels = le.inverse_transform(preds)
 
-    with open('predictions_roberta_large.txt', 'w') as f:
+    with open('predictions_new.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
 
