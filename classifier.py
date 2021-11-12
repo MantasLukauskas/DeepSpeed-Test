@@ -136,7 +136,7 @@ def main():
     )
 
 
-    trainer.train()
+    trainer.train("/results_new_multi/checkpoint-75000")
 
     import numpy as np
     from sklearn.metrics import accuracy_score
