@@ -101,7 +101,7 @@ def main():
 
     training_args = TrainingArguments(
         output_dir='./results_new_multi',  # output directory
-        num_train_epochs=3,  # total number of training epochs
+        num_train_epochs=1,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
