@@ -100,13 +100,13 @@ def main():
     print("Datasets prepared")
 
     training_args = TrainingArguments(
-        output_dir='./results_new_multi',  # output directory
-        num_train_epochs=1,  # total number of training epochs
+        output_dir='./results_new_multi_more_epochs',  # output directory
+        num_train_epochs=2,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
         weight_decay=0.01,  # strength of weight decay
-        logging_dir='./logs_new_multi',  # directory for storing logs
+        logging_dir='./logs_new_multi_more_epochs',  # directory for storing logs
         save_steps=5000,
         logging_steps=100,
     )
@@ -173,7 +173,7 @@ def main():
 
     pred_labels = le.inverse_transform(preds)
 
-    with open('predictions_new.txt', 'w') as f:
+    with open('predictions_new_more_epochs.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
 
