@@ -69,7 +69,7 @@ def main():
 
     # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
     # tokenizer = RobertaTokenizer.from_pretrained('roberta-large-mnli')
-    tokenizer = BertTokenizer.from_pretrained('nlptown/bert-base-multilingual-uncased-sentiment')
+    tokenizer = BertTokenizer.from_pretrained('./results_new_multi/checkpoint-75000')
     # tokenizer = GPT2Tokenizer.from_pretrained('EleutherAI/gpt-neo-125M')
     # tokenizer.pad_token = tokenizer.eos_token
 
@@ -118,10 +118,13 @@ def main():
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
 
-    model = BertForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment",
+    # model = BertForSequenceClassification.from_pretrained("nlptown/bert-base-multilingual-uncased-sentiment",
+    #                                                          num_labels=len(train['label'].unique()),
+    #                                                          ignore_mismatched_sizes=True)
+
+    model = BertForSequenceClassification.from_pretrained("./results_new_multi/checkpoint-75000",
                                                              num_labels=len(train['label'].unique()),
                                                              ignore_mismatched_sizes=True)
-
 
     #
     # model = GPTNeoForSequenceClassification.from_pretrained('EleutherAI/gpt-neo-125M',
@@ -135,7 +138,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train("./results_new_multi/checkpoint-75000")
+    trainer.train()
 
     import numpy as np
     from sklearn.metrics import accuracy_score
