@@ -138,7 +138,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    trainer.train()
+    # trainer.train()
 
     import numpy as np
     from sklearn.metrics import accuracy_score
@@ -153,6 +153,14 @@ def main():
                                 prediction.label_ids,
                                 # target_names=target_names,
                                 digits=3))
+
+    pred_labels = le.inverse_transform(preds)
+    with open('train_predictions_new_more_epochs.txt', 'w') as f:
+        for item in pred_labels:
+            f.write("%s\n" % item)
+    train_dataset.to_csv('train_dataset_new_more_epochs.csv')
+
+
     #
     # # Evaluation on validation dataset
     prediction = trainer.predict(val_dataset)
@@ -163,6 +171,13 @@ def main():
                                 prediction.label_ids,
                                 # target_names=target_names,
                                 digits=3))
+
+    pred_labels = le.inverse_transform(preds)
+    with open('valid_predictions_new_more_epochs.txt', 'w') as f:
+        for item in pred_labels:
+            f.write("%s\n" % item)
+    val_dataset.to_csv('valid_dataset_new_more_epochs.csv')
+
 
     # Evaluation on testing dataset
     prediction = trainer.predict(test_dataset)
@@ -179,7 +194,7 @@ def main():
     with open('predictions_new_more_epochs.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
-
+    test_dataset.to_csv('test_dataset_new_more_epochs.csv')
 
 if __name__ == '__main__':
     main()
