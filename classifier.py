@@ -122,7 +122,7 @@ def main():
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
 
-    model = BertForSequenceClassification.from_pretrained("./results_new_multi/checkpoint-75000",
+    model = BertForSequenceClassification.from_pretrained("./results_new_multi_more_epochs/checkpoint-75000",
                                                              num_labels=len(train['label'].unique()),
                                                              ignore_mismatched_sizes=True)
 
