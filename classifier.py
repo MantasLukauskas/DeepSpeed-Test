@@ -66,9 +66,16 @@ def main():
 
     train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
 
-    train_texts.to_csv("train.csv", sep=";")
-    val_texts.to_csv("val.csv", sep=";")
+    # dictionary of lists
+    dict = {'input': train_texts, "label": train_labels}
+    df = pd.DataFrame(dict)
+    df.to_csv("train.csv", sep=";")
 
+    dict = {'input': val_texts, "label": val_labels}
+    df = pd.DataFrame(dict)
+    df.to_csv("val.csv", sep=";")
+
+    del(df)
 
     # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
     # tokenizer = RobertaTokenizer.from_pretrained('roberta-large-mnli')
