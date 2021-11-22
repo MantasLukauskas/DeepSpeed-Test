@@ -66,6 +66,9 @@ def main():
 
     train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
 
+    train_texts.to_csv("train.csv", sep=";")
+    val_texts.to_csv("val.csv", sep=";")
+
 
     # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
     # tokenizer = RobertaTokenizer.from_pretrained('roberta-large-mnli')
@@ -158,10 +161,7 @@ def main():
     with open('train_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
-    train_dataset.to_csv('train_preds.csv', sep=";")
 
-    train_dataset["preds"] = pred_labels
-    train_dataset.to_csv('train_with_preds.csv', sep=";")
 
 
     # # Evaluation on validation dataset
@@ -178,10 +178,7 @@ def main():
     with open('valid_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
-    val_dataset.to_csv('valid_preds.csv', sep=";")
 
-    val_dataset["preds"] = pred_labels
-    val_dataset.to_csv('valid_with_preds.csv', sep=";")
 
 
 
@@ -200,10 +197,7 @@ def main():
     with open('test_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
-    test_dataset.to_csv('test_dataset_new_more_epochs.csv', sep=";")
 
-    test_dataset["preds"] = pred_labels
-    test_dataset.to_csv('test_with_preds.csv', sep=";")
 
 
 if __name__ == '__main__':
