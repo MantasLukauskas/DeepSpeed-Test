@@ -155,13 +155,15 @@ def main():
                                 digits=3))
 
     pred_labels = le.inverse_transform(preds)
-    with open('train_predictions_new_more_epochs.txt', 'w') as f:
+    with open('train_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
-    train_dataset.to_csv('train_dataset_new_more_epochs.csv')
+    train_dataset.to_csv('train_preds.csv', sep=";")
+
+    train_dataset["preds"] = pred_labels
+    train_dataset.to_csv('train_with_preds.csv', sep=";")
 
 
-    #
     # # Evaluation on validation dataset
     prediction = trainer.predict(val_dataset)
     preds = np.argmax(prediction.predictions, axis=-1)
@@ -173,10 +175,14 @@ def main():
                                 digits=3))
 
     pred_labels = le.inverse_transform(preds)
-    with open('valid_predictions_new_more_epochs.txt', 'w') as f:
+    with open('valid_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
-    val_dataset.to_csv('valid_dataset_new_more_epochs.csv')
+    val_dataset.to_csv('valid_preds.csv', sep=";")
+
+    val_dataset["preds"] = pred_labels
+    val_dataset.to_csv('valid_with_preds.csv', sep=";")
+
 
 
     # Evaluation on testing dataset
@@ -191,10 +197,14 @@ def main():
 
     pred_labels = le.inverse_transform(preds)
 
-    with open('predictions_new_more_epochs.txt', 'w') as f:
+    with open('test_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
-    test_dataset.to_csv('test_dataset_new_more_epochs.csv')
+    test_dataset.to_csv('test_dataset_new_more_epochs.csv', sep=";")
+
+    test_dataset["preds"] = pred_labels
+    test_dataset.to_csv('test_with_preds.csv', sep=";")
+
 
 if __name__ == '__main__':
     main()
