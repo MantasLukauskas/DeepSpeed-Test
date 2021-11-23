@@ -67,11 +67,11 @@ def main():
     train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
 
     # dictionary of lists
-    dict = {'input': train_texts, "label": train_labels}
+    dict = {'input': train_texts, "label": le.inverse_transform(train_labels)}
     df = pd.DataFrame(dict)
     df.to_csv("train.csv", sep=";")
 
-    dict = {'input': val_texts, "label": val_labels}
+    dict = {'input': val_texts, "label": le.inverse_transform(val_labels)}
     df = pd.DataFrame(dict)
     df.to_csv("val.csv", sep=";")
 
