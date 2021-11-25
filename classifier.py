@@ -48,12 +48,21 @@ def main():
     train = train[train["len"] > 20]
     train = train.dropna()
 
+    valid['input'] = valid['input'].str.replace('\n', '')
+    valid['input'] = valid['input'].str.replace(':', '')
+    valid['input'] = valid['input'].str.replace(';', '')
+    valid['input'] = valid['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
+    valid["len"] = valid.apply(lambda row: len(row["input"]), axis=1)
+    valid = valid[valid["len"] > 20]
+    valid = valid.dropna()
+
     test['input'] = test['input'].str.replace('\n', '')
     test['input'] = test['input'].str.replace(':', '')
     test['input'] = test['input'].str.replace(';', '')
     test['input'] = test['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
     test["len"] = test.apply(lambda row: len(row["input"]), axis=1)
     test = test[test["len"] > 20]
+    train = train.dropna()
 
     print(f"Length of training dataset after preprocessing is {len(train)}")
     print(f"Length of testing dataset after preprocessing is {len(test)}")
