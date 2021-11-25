@@ -68,15 +68,22 @@ def main():
     train["label"] = le.transform(train["label"])
     train_labels = train["label"].to_list()
 
-
+    print(f"Train texts ", len(train_texts))
+    print(f"Train labels ", len(train_labels))
 
     val_texts = valid["input"].to_list()
     valid["label"] = le.transform(valid["label"])
     val_labels = valid["label"].to_list()
 
+    print(f"Val texts ", len(val_texts))
+    print(f"Val labels ", len(val_labels))
+
     test_texts = test["input"].to_list()
     test["label"] = le.transform(test["label"])
     test_labels = test["label"].to_list()
+
+    print(f"Test texts ", len(test_texts))
+    print(f"Test labels ", len(test_labels))
 
     print(f"Number of label is {len(train['label'].unique())}")
     #
