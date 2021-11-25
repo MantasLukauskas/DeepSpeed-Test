@@ -24,12 +24,16 @@ def main():
 
     train = pd.read_excel(args.train_file)
     print(f"Training file loaded: {args.train_file}")
+    print(train.head())
 
     valid = pd.read_excel(args.valid_file)
     print(f"Training file loaded: {args.valid_file}")
+    print(valid.head())
 
     test = pd.read_excel(args.test_file)
     print(f"Testing file loaded: {args.test_file}")
+    print(test.head())
+
 
     print(f"Length of training dataset is {len(train)}")
     print(f"Length of training dataset is {len(valid)}")
@@ -63,6 +67,8 @@ def main():
 
     train["label"] = le.transform(train["label"])
     train_labels = train["label"].to_list()
+
+
 
     val_texts = valid["input"].to_list()
     valid["label"] = le.transform(valid["label"])
