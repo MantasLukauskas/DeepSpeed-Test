@@ -39,24 +39,24 @@ def main():
     print(f"Length of training dataset is {len(valid)}")
     print(f"Length of testing dataset is {len(test)}")
 
-    #
-    # train['input'] = train['input'].str.replace('\n', '')
-    # train['input'] = train['input'].str.replace(':', '')
-    # train['input'] = train['input'].str.replace(';', '')
-    # train['input'] = train['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
-    # train["len"] = train.apply(lambda row: len(row["input"]), axis=1)
-    # train = train[train["len"] > 20]
-    # train = train.dropna()
-    #
-    # test['input'] = test['input'].str.replace('\n', '')
-    # test['input'] = test['input'].str.replace(':', '')
-    # test['input'] = test['input'].str.replace(';', '')
-    # test['input'] = test['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
-    # test["len"] = test.apply(lambda row: len(row["input"]), axis=1)
-    # test = test[test["len"] > 20]
-    #
-    # print(f"Length of training dataset after preprocessing is {len(train)}")
-    # print(f"Length of testing dataset after preprocessing is {len(test)}")
+
+    train['input'] = train['input'].str.replace('\n', '')
+    train['input'] = train['input'].str.replace(':', '')
+    train['input'] = train['input'].str.replace(';', '')
+    train['input'] = train['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
+    train["len"] = train.apply(lambda row: len(row["input"]), axis=1)
+    train = train[train["len"] > 20]
+    train = train.dropna()
+
+    test['input'] = test['input'].str.replace('\n', '')
+    test['input'] = test['input'].str.replace(':', '')
+    test['input'] = test['input'].str.replace(';', '')
+    test['input'] = test['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
+    test["len"] = test.apply(lambda row: len(row["input"]), axis=1)
+    test = test[test["len"] > 20]
+
+    print(f"Length of training dataset after preprocessing is {len(train)}")
+    print(f"Length of testing dataset after preprocessing is {len(test)}")
 
     print("Text preprocessing is done")
 
