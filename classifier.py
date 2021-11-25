@@ -18,35 +18,41 @@ def main():
     parser = argparse.ArgumentParser(description='List the content of a folder')
     parser.add_argument('--train_file', type=str, help='Input dir for videos')
     parser.add_argument('--test_file', type=str, help='Input dir for videos')
+    parser.add_argument('--valid_file', type=str, help='Input dir for videos')
     parser.add_argument('--batch_size', type=int, help='Input dir for videos')
     args = parser.parse_args()
 
     train = pd.read_excel(args.train_file)
     print(f"Training file loaded: {args.train_file}")
 
+    valid = pd.read_excel(args.valid_file)
+    print(f"Training file loaded: {args.valid_file}")
+
     test = pd.read_excel(args.test_file)
     print(f"Testing file loaded: {args.test_file}")
 
     print(f"Length of training dataset is {len(train)}")
+    print(f"Length of training dataset is {len(valid)}")
     print(f"Length of testing dataset is {len(test)}")
 
-    train['input'] = train['input'].str.replace('\n', '')
-    train['input'] = train['input'].str.replace(':', '')
-    train['input'] = train['input'].str.replace(';', '')
-    train['input'] = train['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
-    train["len"] = train.apply(lambda row: len(row["input"]), axis=1)
-    train = train[train["len"] > 20]
-    train = train.dropna()
-
-    test['input'] = test['input'].str.replace('\n', '')
-    test['input'] = test['input'].str.replace(':', '')
-    test['input'] = test['input'].str.replace(';', '')
-    test['input'] = test['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
-    test["len"] = test.apply(lambda row: len(row["input"]), axis=1)
-    test = test[test["len"] > 20]
-
-    print(f"Length of training dataset after preprocessing is {len(train)}")
-    print(f"Length of testing dataset after preprocessing is {len(test)}")
+    #
+    # train['input'] = train['input'].str.replace('\n', '')
+    # train['input'] = train['input'].str.replace(':', '')
+    # train['input'] = train['input'].str.replace(';', '')
+    # train['input'] = train['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
+    # train["len"] = train.apply(lambda row: len(row["input"]), axis=1)
+    # train = train[train["len"] > 20]
+    # train = train.dropna()
+    #
+    # test['input'] = test['input'].str.replace('\n', '')
+    # test['input'] = test['input'].str.replace(':', '')
+    # test['input'] = test['input'].str.replace(';', '')
+    # test['input'] = test['input'].apply(lambda row: re.sub(r"[^a-zA-Z0-9]", " ", str(row)))
+    # test["len"] = test.apply(lambda row: len(row["input"]), axis=1)
+    # test = test[test["len"] > 20]
+    #
+    # print(f"Length of training dataset after preprocessing is {len(train)}")
+    # print(f"Length of testing dataset after preprocessing is {len(test)}")
 
     print("Text preprocessing is done")
 
@@ -58,24 +64,28 @@ def main():
     train["label"] = le.transform(train["label"])
     train_labels = train["label"].to_list()
 
+    val_texts = valid["input"].to_list()
+    valid["label"] = le.transform(valid["label"])
+    val_labels = valid["label"].to_list()
+
     test_texts = test["input"].to_list()
     test["label"] = le.transform(test["label"])
     test_labels = test["label"].to_list()
 
     print(f"Number of label is {len(train['label'].unique())}")
-
-    train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
-
-    # dictionary of lists
-    dict = {'input': train_texts, "label": le.inverse_transform(train_labels)}
-    df = pd.DataFrame(dict)
-    df.to_csv("train.csv", sep=";")
-
-    dict = {'input': val_texts, "label": le.inverse_transform(val_labels)}
-    df = pd.DataFrame(dict)
-    df.to_csv("val.csv", sep=";")
-
-    del(df)
+    #
+    # train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
+    #
+    # # dictionary of lists
+    # dict = {'input': train_texts, "label": le.inverse_transform(train_labels)}
+    # df = pd.DataFrame(dict)
+    # df.to_csv("train.csv", sep=";")
+    #
+    # dict = {'input': val_texts, "label": le.inverse_transform(val_labels)}
+    # df = pd.DataFrame(dict)
+    # df.to_csv("val.csv", sep=";")
+    #
+    # del(df)
 
     # tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased-finetuned-sst-2-english')
     # tokenizer = RobertaTokenizer.from_pretrained('roberta-large-mnli')
@@ -111,7 +121,7 @@ def main():
 
     training_args = TrainingArguments(
         output_dir='./results_new_multi_more_epochs',  # output directory
-        num_train_epochs=3,  # total number of training epochs
+        num_train_epochs=2,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
@@ -148,7 +158,7 @@ def main():
         eval_dataset=val_dataset  # evaluation dataset
     )
 
-    # trainer.train()
+    trainer.train()
 
     import numpy as np
     from sklearn.metrics import accuracy_score
