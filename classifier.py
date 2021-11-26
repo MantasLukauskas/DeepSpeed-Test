@@ -48,6 +48,7 @@ def main():
     train = train[train["len"] > 20]
     train = train.dropna()
 
+
     valid['input'] = valid['input'].str.replace('\n', '')
     valid['input'] = valid['input'].str.replace(':', '')
     valid['input'] = valid['input'].str.replace(';', '')
@@ -56,6 +57,7 @@ def main():
     valid = valid[valid["len"] > 20]
     valid = valid.dropna()
 
+
     test['input'] = test['input'].str.replace('\n', '')
     test['input'] = test['input'].str.replace(':', '')
     test['input'] = test['input'].str.replace(';', '')
@@ -63,6 +65,7 @@ def main():
     test["len"] = test.apply(lambda row: len(row["input"]), axis=1)
     test = test[test["len"] > 20]
     train = train.dropna()
+
 
     print(f"Length of training dataset after preprocessing is {len(train)}")
     print(f"Length of testing dataset after preprocessing is {len(test)}")
@@ -118,7 +121,6 @@ def main():
     train_encodings = tokenizer(train_texts, truncation=True, padding=True)
     val_encodings = tokenizer(val_texts, truncation=True, padding=True)
     test_encodings = tokenizer(test_texts, truncation=True, padding=True)
-
     print("Encoding ended")
 
 
@@ -164,11 +166,12 @@ def main():
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
 
+
     model = BertForSequenceClassification.from_pretrained("./results_new_multi_more_epochs/checkpoint-75000",
                                                              num_labels=len(train['label'].unique()),
                                                              ignore_mismatched_sizes=True)
 
-    #
+
     # model = GPTNeoForSequenceClassification.from_pretrained('EleutherAI/gpt-neo-125M',
     #                                                          num_labels=len(train['label'].unique()),
     #                                                          ignore_mismatched_sizes=True)
