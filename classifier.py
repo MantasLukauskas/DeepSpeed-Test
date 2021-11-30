@@ -74,24 +74,24 @@ def main():
 
     train_texts = train["input"].to_list()
 
-    le = preprocessing.LabelEncoder()
-    le.fit(train["label"])
-
-    train["label"] = le.transform(train["label"])
+    # le = preprocessing.LabelEncoder()
+    # le.fit(train["label"])
+    #
+    # train["label"] = le.transform(train["label"])
     train_labels = train["label"].to_list()
 
     print(f"Train texts ", len(train_texts))
     print(f"Train labels ", len(train_labels))
 
-    val_texts = valid["input"].to_list()
-    valid["label"] = le.transform(valid["label"])
+    # val_texts = valid["input"].to_list()
+    # valid["label"] = le.transform(valid["label"])
     val_labels = valid["label"].to_list()
 
     print(f"Val texts ", len(val_texts))
     print(f"Val labels ", len(val_labels))
 
-    test_texts = test["input"].to_list()
-    test["label"] = le.transform(test["label"])
+    # test_texts = test["input"].to_list()
+    # test["label"] = le.transform(test["label"])
     test_labels = test["label"].to_list()
 
     print(f"Test texts ", len(test_texts))
@@ -102,17 +102,18 @@ def main():
     # train_texts, val_texts, train_labels, val_labels = train_test_split(train_texts, train_labels, test_size=.2)
     #
     # dictionary of lists
-    dict = {'input': train_texts, "label": le.inverse_transform(train_labels)}
-    df = pd.DataFrame(dict)
-    df.to_csv("train.csv", sep=";")
+    # dict = {'input': train_texts, "label": le.inverse_transform(train_labels)}
+    # df = pd.DataFrame(dict)
+    # df.to_csv("train.csv", sep=";")
+    #
+    # dict = {'input': val_texts, "label": le.inverse_transform(val_labels)}
+    # df = pd.DataFrame(dict)
+    # df.to_csv("val.csv", sep=";")
+    #
+    # dict = {'input': test_texts, "label": le.inverse_transform(test_labels)}
+    # df = pd.DataFrame(dict)
+    # df.to_csv("test.csv", sep=";")
 
-    dict = {'input': val_texts, "label": le.inverse_transform(val_labels)}
-    df = pd.DataFrame(dict)
-    df.to_csv("val.csv", sep=";")
-
-    dict = {'input': test_texts, "label": le.inverse_transform(test_labels)}
-    df = pd.DataFrame(dict)
-    df.to_csv("test.csv", sep=";")
     #
     # del(df)
 
@@ -148,8 +149,8 @@ def main():
     print("Datasets prepared")
 
     training_args = TrainingArguments(
-        output_dir='./results_new_multi_more_epochs',  # output directory
-        num_train_epochs=2,  # total number of training epochs
+        output_dir='./New_multi',  # output directory
+        num_train_epochs=1,  # total number of training epochs
         per_device_train_batch_size=args.batch_size,  # batch size per device during training
         per_device_eval_batch_size=args.batch_size,  # batch size for evaluation
         warmup_steps=100,  # number of warmup steps for learning rate scheduler
@@ -171,7 +172,7 @@ def main():
     #                                                          ignore_mismatched_sizes=True)
 
 
-    model = BertForSequenceClassification.from_pretrained("./results_new_multi_more_epochs/checkpoint-75000",
+    model = BertForSequenceClassification.from_pretrained("./results_new_multi_more_epochs/checkpoint-50000",
                                                              num_labels=len(train['label'].unique()),
                                                              ignore_mismatched_sizes=True)
 
@@ -203,7 +204,7 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
-    pred_labels = le.inverse_transform(preds)
+    # pred_labels = le.inverse_transform(preds)
     with open('train_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
@@ -220,7 +221,7 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
-    pred_labels = le.inverse_transform(preds)
+    # pred_labels = le.inverse_transform(preds)
     with open('valid_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
@@ -238,8 +239,7 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
-    pred_labels = le.inverse_transform(preds)
-
+    # pred_labels = le.inverse_transform(preds)
     with open('test_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
