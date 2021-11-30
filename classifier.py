@@ -172,7 +172,7 @@ def main():
     #                                                          ignore_mismatched_sizes=True)
 
 
-    model = BertForSequenceClassification.from_pretrained("./results_new_multi_more_epochs/checkpoint-50000",
+    model = BertForSequenceClassification.from_pretrained("zyro/ai-what-is-web/checkpoint-50000/",
                                                              num_labels=len(train['label'].unique()),
                                                              ignore_mismatched_sizes=True)
 
