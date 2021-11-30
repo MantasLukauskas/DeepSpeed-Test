@@ -83,14 +83,14 @@ def main():
     print(f"Train texts ", len(train_texts))
     print(f"Train labels ", len(train_labels))
 
-    # val_texts = valid["input"].to_list()
+    val_texts = valid["input"].to_list()
     # valid["label"] = le.transform(valid["label"])
     val_labels = valid["label"].to_list()
 
     print(f"Val texts ", len(val_texts))
     print(f"Val labels ", len(val_labels))
 
-    # test_texts = test["input"].to_list()
+    test_texts = test["input"].to_list()
     # test["label"] = le.transform(test["label"])
     test_labels = test["label"].to_list()
 
@@ -204,7 +204,7 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
-    # pred_labels = le.inverse_transform(preds)
+    pred_labels = preds
     with open('train_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
@@ -221,7 +221,7 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
-    # pred_labels = le.inverse_transform(preds)
+    pred_labels = preds
     with open('valid_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
@@ -239,7 +239,7 @@ def main():
                                 # target_names=target_names,
                                 digits=3))
 
-    # pred_labels = le.inverse_transform(preds)
+    pred_labels = preds
     with open('test_predictions.txt', 'w') as f:
         for item in pred_labels:
             f.write("%s\n" % item)
