@@ -6,10 +6,10 @@ from sklearn.model_selection import train_test_split
 from transformers import DistilBertTokenizerFast
 import torch
 import numpy as np
+
 from sklearn.metrics import accuracy_score
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
 from transformers import BertTokenizer, BertForSequenceClassification
-import numpy as np
 from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments
 from transformers import GPT2Tokenizer, GPTNeoForSequenceClassification
 
@@ -77,7 +77,9 @@ def main():
     le = preprocessing.LabelEncoder()
     le.fit(train["label"])
 
+    import numpy as np
     np.save("classes.npy", le.classes_)
+
     print("Classes are saved")
 
     #
