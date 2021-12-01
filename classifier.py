@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
 from transformers import BertTokenizer, BertForSequenceClassification
-
+import numpy as np
 from transformers import DistilBertForSequenceClassification, Trainer, TrainingArguments
 from transformers import GPT2Tokenizer, GPTNeoForSequenceClassification
 
@@ -74,8 +74,12 @@ def main():
 
     train_texts = train["input"].to_list()
 
-    # le = preprocessing.LabelEncoder()
-    # le.fit(train["label"])
+    le = preprocessing.LabelEncoder()
+    le.fit(train["label"])
+
+    np.save("classes.npy", le.classes_)
+    print("Classes are saved")
+
     #
     # train["label"] = le.transform(train["label"])
     train_labels = train["label"].to_list()
