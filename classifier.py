@@ -77,8 +77,8 @@ def main():
     le = preprocessing.LabelEncoder()
     le.fit(train["label"])
 
-    import numpy as np
-    np.save("classes.npy", le.classes_)
+    import numpy
+    numpy.save("classes.npy", le.classes_)
 
     print("Classes are saved")
 
@@ -196,7 +196,6 @@ def main():
 
     trainer.train()
 
-    import numpy as np
     from sklearn.metrics import accuracy_score
     from sklearn.metrics import classification_report
 
